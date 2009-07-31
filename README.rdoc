@@ -1,0 +1,25 @@
+= OJUtils
+
+OJUtils is a set of utilities for Objective-J that I happen to find useful for
+my development. They are listed below.
+
+== BlankSlate
+
+In essence, the BlankSlate class provided herein is the minimum strictly
+required to have a fully functional Objective-J class. This is particularly
+useful if you want to assemble a class based on forwardInvocation: that needs
+to clash with as few methods as possible (e.g., a class that proxies method
+calls to another object).
+
+The next version of Objective-J/Cappuccino will hopefully include an Object
+class that will fulfill this need (at least if I get off my ass and help finish
+it up), at which point I will remove this from the utilities.
+
+== DelegateProxy
+
+The DelegateProxy class is meant to wrap a given delegate object and proxy all
+message sent to it on to the delegate object. Its key use is that it will not
+raise an error of any sort if you send it a message that the delegate does not
+understand. This makes it so that the wrapped delegate object need only
+implement the delegate methods it is interested in without worrying about the
+class using it raising any errors.
