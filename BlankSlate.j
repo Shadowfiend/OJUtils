@@ -21,52 +21,52 @@
 {
 }
 
-- (id)methodSignatureForSelector: (SEL)aSelector
+- (id)methodSignatureForSelector:(SEL)aSelector
 {
   return null;
 }
 
-- (id)forward: (SEL)aSelector :(id) args
+- (id)forward:(SEL)aSelector :(id)args
 {
-  var signature = [self methodSignatureForSelector: aSelector];
+  var signature = [self methodSignatureForSelector:aSelector];
 
   if (signature)
   {
-    var invocation = [CPInvocation invocationWithMethodSignature: signature];
-    [invocation setTarget: self]
-    [invocation setSelector: aSelector]
+    var invocation = [CPInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:self]
+    [invocation setSelector:aSelector]
 
     var index = 2,
         count = args.length;
 
     for (; index < count; ++index)
-      [invocation setArgument: args[index] atIndex: index];
+      [invocation setArgument:args[index] atIndex:index];
 
-    [self forwardInvocation: invocation]
+    [self forwardInvocation:invocation]
     return [invocation returnValue];
   }
 
-  [self doesNotRecognizeSelector: aSelector]
+  [self doesNotRecognizeSelector:aSelector]
 }
 
 - (CPString)description
 {
-  return "<" + isa.name + " 0x" + [CPString stringWithHash: __address] + ">";
+  return "<" + isa.name + " 0x" + [CPString stringWithHash:__address] + ">";
 }
 
-- (void)forwardInvocation: (CPInvocation)anInvocation
+- (void)forwardInvocation:(CPInvocation)anInvocation
 {
-  [self doesNotRecognizeSelector: [anInvocation selector]]
+  [self doesNotRecognizeSelector:[anInvocation selector]]
 }
 
-- (void)doesNotRecognizeSelector: (SEL)aSelector
+- (void)doesNotRecognizeSelector:(SEL)aSelector
 {
-  [CPException raise: CPInvalidArgumentException
-               reason: (class_isMetaClass(isa) ? "+" : "-") + " [" +
-                       isa.name + " " + aSelector + "] unrecognized selector " +
-                       " sent to " +
-                       (class_isMetaClass(isa) ? "class" : "instance") +
-                       " 0x" + [CPString stringWithHash: __address]]
+  [CPException raise:CPInvalidArgumentException
+              reason:(class_isMetaClass(isa) ? "+" : "-") + " [" +
+                     isa.name + " " + aSelector + "] unrecognized selector " +
+                     " sent to " +
+                     (class_isMetaClass(isa) ? "class" : "instance") +
+                     " 0x" + [CPString stringWithHash:__address]]
 }
 
 @end
