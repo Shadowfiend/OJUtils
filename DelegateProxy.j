@@ -9,6 +9,18 @@
     id delegate;
 }
 
++ (DelegateProxy)proxyWithDelegate:(id)aDelegate
+{
+    return [[self alloc] initWithDelegate:aDelegate];
+}
+
+- (DelegateProxy)initWithDelegate:(id)aDelegate
+{
+    delegate = aDelegate;
+
+    return self;
+}
+
 - (id)methodSignatureForSelector:(SEL)aSelector
 {
     return true;
